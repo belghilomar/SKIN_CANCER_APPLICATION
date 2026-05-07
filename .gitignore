@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.env
+
+# Flask specific
+instance/
+.webassets-cache
+
+# Models
+model/vgg16_skin_cancer.h5
+*.h5
+*.hdf5
+
+# Uploaded images
+static/uploads/*
+!static/uploads/.gitkeep
+
+# IDE and Editor directories
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# MacOS
+.DS_Store
+
+# Windows
+desktop.ini

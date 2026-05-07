@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DermAI - Connexion</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="text-center mb-4">
+                <h1 style="color: var(--secondary); font-weight: 700; letter-spacing: -1px;">
+                    <i class="fa-solid fa-microscope" style="color: var(--primary);"></i> DermAI
+                </h1>
+                <p class="text-muted">Système de Diagnostic Dermatologique</p>
+            </div>
+            
+            <div class="card custom-card">
+                <div class="card-body p-5">
+                    <h4 class="mb-4 text-center" style="font-weight: 600;">Authentification</h4>
+                    
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form action="/login" method="POST">
+                        <div class="mb-4">
+                            <label class="form-label text-muted fw-semibold small">Nom d'utilisateur</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-user text-muted"></i></span>
+                                <input type="text" class="form-control border-start-0 bg-light" name="username" required placeholder="Ex: admin">
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <label class="form-label text-muted fw-semibold small">Mot de passe</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-lock text-muted"></i></span>
+                                <input type="password" class="form-control border-start-0 bg-light" name="password" required placeholder="••••••••">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100 py-2">
+                            Se connecter <i class="fa-solid fa-arrow-right ms-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-4 text-muted small">
+                &copy; 2026 DermAI Platform.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

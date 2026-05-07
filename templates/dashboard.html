@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DermAI - Tableau de bord</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/dashboard"><i class="fa-solid fa-microscope"></i> DermAI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/dashboard"><i class="fa-solid fa-chart-pie me-1"></i>
+                            Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/patients"><i class="fa-solid fa-users me-1"></i> Historique</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="btn btn-outline-light btn-sm rounded-pill px-3" href="/logout"><i
+                                class="fa-solid fa-sign-out-alt me-1"></i> Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 style="font-weight: 700; color: var(--secondary);">Tableau de Bord</h2>
+                <p class="text-muted">Bienvenue sur votre espace d'analyse dermatologique.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card custom-card h-100">
+                    <div class="card-body text-center p-5">
+                        <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex p-4 mb-4">
+                            <i class="fa-solid fa-camera-viewfinder fa-3x" style="color: var(--primary);"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Nouvelle Analyse</h4>
+                        <p class="text-muted mb-4">Soumettez l'image d'une lésion cutanée pour obtenir un diagnostic
+                            instantané .</p>
+                        <a href="/predict" class="btn btn-primary-custom px-4 py-2">Lancer une analyse <i
+                                class="fa-solid fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card custom-card h-100">
+                    <div class="card-body text-center p-5">
+                        <div class="rounded-circle bg-info bg-opacity-10 d-inline-flex p-4 mb-4">
+                            <i class="fa-solid fa-folder-open fa-3x text-info"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Dossiers Patients</h4>
+                        <p class="text-muted mb-4">Consultez l'historique complet des diagnostics passés, incluant les
+                            images et les probabilités calculées.</p>
+                        <a href="/patients" class="btn btn-outline-secondary px-4 py-2"
+                            style="border-width: 2px; border-radius: 8px;">Voir la base de données</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

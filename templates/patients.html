@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DermAI - Historique</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="/dashboard"><i class="fa-solid fa-microscope"></i> DermAI</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard"><i class="fa-solid fa-chart-pie me-1"></i> Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/patients"><i class="fa-solid fa-users me-1"></i> Historique</a>
+                </li>
+                <li class="nav-item ms-3">
+                    <a class="btn btn-outline-light btn-sm rounded-pill px-3" href="/logout"><i class="fa-solid fa-sign-out-alt me-1"></i> Déconnexion</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5 mb-5">
+    <div class="row align-items-end mb-4">
+        <div class="col-md-8">
+            <a href="/dashboard" class="text-decoration-none text-muted mb-2 d-inline-block"><i class="fa-solid fa-arrow-left me-1"></i> Retour</a>
+            <h2 style="font-weight: 700; color: var(--secondary);">Base de Données Patients</h2>
+            <p class="text-muted mb-0">Historique des analyses dermatologiques réalisées.</p>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <a href="/predict" class="btn btn-primary-custom"><i class="fa-solid fa-plus me-1"></i> Nouvelle analyse</a>
+        </div>
+    </div>
+
+    <div class="card custom-card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-custom mb-0">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-3">ID</th>
+                            <th class="py-3">Patient</th>
+                            <th class="py-3">Âge</th>
+                            <th class="py-3">Image analysée</th>
+                            <th class="py-3">Diagnostic</th>
+                            <th class="py-3">Certitude</th>
+                            <th class="px-4 py-3 text-end">Date d'analyse</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                        <tr>
+                            <td class="px-4 py-3 fw-bold text-muted">#{{ patient.id }}</td>
+                            <td class="py-3 fw-semibold" style="color: var(--secondary);">{{ patient.name|title }}</td>
+                            <td class="py-3">{{ patient.age }} ans</td>
+                            <td class="py-3">
+                                <a href="{{ url_for('static', filename='uploads/' + patient.image_path) }}" target="_blank" class="text-decoration-none d-flex align-items-center">
+                                    <img src="{{ url_for('static', filename='uploads/' + patient.image_path) }}" class="rounded me-2" style="width: 32px; height: 32px; object-fit: cover;">
+                                    <span class="small text-muted text-truncate" style="max-width: 120px;">Voir photo</span>
+                                </a>
+                            </td>
+                            <td class="py-3">
+                                {% if patient.result == 'Malignant' %}
+                                    <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 px-2 py-1"><i class="fa-solid fa-circle-exclamation me-1"></i> Malignant</span>
+                                {% else %}
+                                    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1"><i class="fa-solid fa-check me-1"></i> Bénin</span>
+                                {% endif %}
+                            </td>
+                            <td class="py-3 fw-semibold">
+                                {% if patient.result == 'Malignant' %}
+                                    <span class="text-danger">{{ "%.1f"|format(patient.probability * 100) }}%</span>
+                                {% else %}
+                                    <span class="text-success">{{ "%.1f"|format((1 - patient.probability) * 100) }}%</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-4 py-3 text-end text-muted small">{{ patient.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <div class="mb-3"><i class="fa-solid fa-folder-open fa-3x text-light"></i></div>
+                                <h5 class="fw-semibold">Aucun historique</h5>
+                                <p>La base de données est vide pour le moment.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

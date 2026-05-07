@@ -92,7 +92,7 @@ SKIN_CANCER_APP/
 │   └── patients.html
 ├── screenshots/            # Dossier contenant les captures d'écran
 └── model/
-    └── vgg16_skin_cancer.h5 # Modèle Keras (à placer ici)
+    └── vgg16_skin_cancer.h5 
 ```
 
 
